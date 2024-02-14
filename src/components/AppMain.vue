@@ -14,24 +14,25 @@ export default {
     fetchmovies() {
       axios
         .get(
-          `${store.moviesUri}${store.apiKey}&query=${store.searchbar}${store.itLanguage}`
+          `${store.moviesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
         )
         .then((res) => {
+          console.log(res);
           store.movieResearch = res.data.results;
           this.searchbar = "";
         });
     },
 
-    // fetchseries() {
-    //   axios
-    //     .get(
-    //       `${store.seriesUri}${store.apiKey}&query=${store.searchbar}${store.itLanguage}`
-    //     )
-    //     .then((res) => {
-    //       store.seriesResearch = res.data.results;
-    //       this.searchbar = "";
-    //     });
-    // },
+    fetchseries() {
+      axios
+        .get(
+          `${store.seriesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
+        )
+        .then((res) => {
+          store.seriesResearch = res.data.results;
+          this.searchbar = "";
+        });
+    },
   },
 };
 </script>
