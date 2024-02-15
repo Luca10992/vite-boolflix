@@ -21,23 +21,21 @@ export default {
 
     getFlag(lang) {
       if (lang == "it") {
-        return new URL("https://flagsapi.com/IT/shiny/32.png", import.meta.url)
-          .href;
+        return new URL("/public/it.png", import.meta.url).href;
       }
-      if (lang == "EN") {
-        return new URL("https://flagsapi.com/EN/shiny/32.png", import.meta.url)
-          .href;
+      if (lang == "en") {
+        return new URL("/public/en.png", import.meta.url).href;
       }
       if (lang == "de") {
-        return new URL("https://flagsapi.com/DE/shiny/32.png", import.meta.url)
-          .href;
+        return new URL("/public/de.png", import.meta.url).href;
+      }
+      if (lang == "es") {
+        return new URL("/public/es.png", import.meta.url).href;
       }
       if (lang == "fr") {
-        return new URL("https://flagsapi.com/FR/shiny/32.png", import.meta.url)
-          .href;
+        return new URL("/public/fr.png", import.meta.url).href;
       } else {
-        return new URL("https://flagsapi.com/EU/shiny/32.png", import.meta.url)
-          .href;
+        return new URL("/public/world.png", import.meta.url).href;
       }
     },
   },
