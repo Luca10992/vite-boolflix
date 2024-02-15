@@ -1,37 +1,44 @@
 <script>
-import axios from "axios";
 import { store } from "../store";
 
 export default {
   data() {
     return {
       store,
-      searchbar: "",
     };
   },
 
   methods: {
-    fetchmovies() {
-      axios
-        .get(
-          `${store.moviesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
-        )
-        .then((res) => {
-          console.log(res);
-          store.movieResearch = res.data.results;
-          this.searchbar = "";
-        });
+    voteFixed(movie) {
+      const vote = movie.vote.toFixed(1);
+      return vote;
     },
 
-    fetchseries() {
-      axios
-        .get(
-          `${store.seriesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
-        )
-        .then((res) => {
-          store.seriesResearch = res.data.results;
-          this.searchbar = "";
-        });
+    langUpper(movie) {
+      const lang = movie.language.toUpperCase();
+      return lang;
+    },
+
+    getFlag(lang) {
+      if (lang == "it") {
+        return new URL("https://flagsapi.com/IT/shiny/32.png", import.meta.url)
+          .href;
+      }
+      if (lang == "EN") {
+        return new URL("https://flagsapi.com/EN/shiny/32.png", import.meta.url)
+          .href;
+      }
+      if (lang == "de") {
+        return new URL("https://flagsapi.com/DE/shiny/32.png", import.meta.url)
+          .href;
+      }
+      if (lang == "fr") {
+        return new URL("https://flagsapi.com/FR/shiny/32.png", import.meta.url)
+          .href;
+      } else {
+        return new URL("https://flagsapi.com/EU/shiny/32.png", import.meta.url)
+          .href;
+      }
     },
   },
 };
@@ -40,22 +47,17 @@ export default {
 <template>
   <main>
     <div class="container m-3">
-      <div class="search-bar d-flex gap-2">
-        <input
-          class="w-50"
-          @keyup.enter="fetchmovies()"
-          v-model="this.searchbar"
-          type="text"
-          placeholder="Inserisci titolo film/serie Tv"
-        />
-        <button @click="fetchmovies()" class="btn btn-primary">Cerca</button>
-      </div>
       <div class="result-box">
-        <ul v-for="movie in store.movieResearch">
-          <li class="title">{{ movie.title }}</li>
-          <li class="original-title">{{ movie.original_title }}</li>
-          <li class="lang">{{ movie.original_language }}</li>
-          <li class="vote">{{ movie.vote_average }}</li>
+        <ul v-for="movie in store.resultResearch">
+          <li class="title">{{ "Titolo: " + movie.title }}</li>
+          <li class="original-title">
+            {{ "Titolo originale: " + movie.original_title }}
+          </li>
+          <li class="lang">
+            {{ "Lingua originale: " + langUpper(movie) }}
+          </li>
+          <li class="flag"><img :src="getFlag(movie.language)" /></li>
+          <li class="vote">{{ "Voto: " + voteFixed(movie) }}</li>
         </ul>
       </div>
     </div>
