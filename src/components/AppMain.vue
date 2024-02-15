@@ -9,8 +9,15 @@ export default {
   },
 
   methods: {
+    buildImagePath(movie) {
+      return new URL(
+        `${store.imageUri}original${movie.poster}`,
+        import.meta.url
+      ).href;
+    },
+
     voteFixed(movie) {
-      const vote = movie.vote.toFixed(1);
+      const vote = (movie.vote / 2).toFixed();
       return vote;
     },
 
@@ -45,8 +52,11 @@ export default {
 <template>
   <main>
     <div class="container m-3">
-      <div class="result-box">
-        <ul v-for="movie in store.resultResearch">
+      <div class="result-box d-flex" v-for="movie in store.resultResearch">
+        <div class="poster-box">
+          <img class="poster" :src="buildImagePath(movie)" alt="" />
+        </div>
+        <ul>
           <li class="title">{{ "Titolo: " + movie.title }}</li>
           <li class="original-title">
             {{ "Titolo originale: " + movie.original_title }}
@@ -55,11 +65,41 @@ export default {
             {{ "Lingua originale: " + langUpper(movie) }}
           </li>
           <li class="flag"><img :src="getFlag(movie.language)" /></li>
-          <li class="vote">{{ "Voto: " + voteFixed(movie) }}</li>
+          <li class="vote">
+            Valutazione:
+            <font-awesome-icon icon="fa-regular fa-star" />
+            <font-awesome-icon icon="fa-regular fa-star" />
+            <font-awesome-icon icon="fa-regular fa-star" />
+            <font-awesome-icon icon="fa-regular fa-star" />
+            <font-awesome-icon icon="fa-regular fa-star" />
+          </li>
         </ul>
       </div>
     </div>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.result-box {
+  width: 40%;
+  border: 2px dashed #333;
+  .poster-box {
+    width: 40%;
+
+    .poster {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+  }
+
+  ul {
+    width: 60%;
+    padding: 1rem;
+
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}
+</style>

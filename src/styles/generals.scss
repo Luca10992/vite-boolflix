@@ -2,3 +2,7 @@
 @use "../styles/partials/mixins" as *;
 
 @import "bootstrap/scss/bootstrap";
+
+ul {
+  list-style: none;
+}
