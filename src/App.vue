@@ -13,17 +13,19 @@ export default {
 </script>
 
 <template>
-  <header>
-    <AppHeader></AppHeader>
-  </header>
+  <body>
+    <header>
+      <AppHeader></AppHeader>
+    </header>
 
-  <main>
-    <AppMain></AppMain>
-  </main>
+    <main>
+      <AppMain></AppMain>
+    </main>
 
-  <footer>
-    <AppFooter></AppFooter>
-  </footer>
+    <footer>
+      <AppFooter></AppFooter>
+    </footer>
+  </body>
 </template>
 
 <style lang="scss">

@@ -1,5 +1,6 @@
 <script>
 import { store } from "../store";
+import AppCard from "./AppCard.vue";
 
 export default {
   data() {
@@ -8,98 +9,55 @@ export default {
     };
   },
 
-  methods: {
-    buildImagePath(movie) {
-      return new URL(
-        `${store.imageUri}original${movie.poster}`,
-        import.meta.url
-      ).href;
-    },
-
-    voteFixed(movie) {
-      const vote = (movie.vote / 2).toFixed();
-      return vote;
-    },
-
-    langUpper(movie) {
-      const lang = movie.language.toUpperCase();
-      return lang;
-    },
-
-    getFlag(lang) {
-      if (lang == "it") {
-        return new URL("/public/it.png", import.meta.url).href;
-      }
-      if (lang == "en") {
-        return new URL("/public/en.png", import.meta.url).href;
-      }
-      if (lang == "de") {
-        return new URL("/public/de.png", import.meta.url).href;
-      }
-      if (lang == "es") {
-        return new URL("/public/es.png", import.meta.url).href;
-      }
-      if (lang == "fr") {
-        return new URL("/public/fr.png", import.meta.url).href;
-      } else {
-        return new URL("/public/world.png", import.meta.url).href;
-      }
-    },
-  },
+  components: { AppCard },
 };
 </script>
 
 <template>
   <main>
-    <div class="container m-3">
-      <div class="result-box d-flex" v-for="movie in store.resultResearch">
-        <div class="poster-box">
-          <img class="poster" :src="buildImagePath(movie)" alt="" />
+    <div class="container p-5">
+      <p>Film</p>
+      <div class="result-box">
+        <div class="movie result" v-for="movie in store.moviesResearch">
+          <AppCard :list="movie"></AppCard>
         </div>
-        <ul>
-          <li class="title">{{ "Titolo: " + movie.title }}</li>
-          <li class="original-title">
-            {{ "Titolo originale: " + movie.original_title }}
-          </li>
-          <li class="lang">
-            {{ "Lingua originale: " + langUpper(movie) }}
-          </li>
-          <li class="flag"><img :src="getFlag(movie.language)" /></li>
-          <li class="vote">
-            Valutazione:
-            <font-awesome-icon icon="fa-regular fa-star" />
-            <font-awesome-icon icon="fa-regular fa-star" />
-            <font-awesome-icon icon="fa-regular fa-star" />
-            <font-awesome-icon icon="fa-regular fa-star" />
-            <font-awesome-icon icon="fa-regular fa-star" />
-          </li>
-        </ul>
+      </div>
+      <p>Serie Tv</p>
+      <div class="result-box">
+        <div class="serie result" v-for="serie in store.seriesResearch">
+          <AppCard :list="serie"></AppCard>
+        </div>
       </div>
     </div>
   </main>
 </template>
 
-<style lang="scss" scoped>
-.result-box {
-  width: 40%;
-  border: 2px dashed #333;
-  .poster-box {
-    width: 40%;
+<style lang="scss">
+p {
+  font-size: 2rem;
+  color: white;
+  font-family: "Ruda", sans-serif;
+  font-weight: bolder;
+  margin: 2rem 0;
+}
 
-    .poster {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-    }
+.result-box {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.result {
+  width: calc(100% / 4 - 20px);
+  background-color: black;
+  overflow: auto;
+
+  &:hover .poster-box {
+    display: none;
   }
 
-  ul {
-    width: 60%;
-    padding: 1rem;
-
-    li {
-      margin-bottom: 1rem;
-    }
+  &:hover ul {
+    display: block;
   }
 }
 </style>

@@ -6,5 +6,6 @@ export const store = reactive({
   imageUri: "https://image.tmdb.org/t/p/",
   apiKey: "?api_key=6408f124b16723174543f6ecc003e7e1",
   itLanguage: "&language=it-IT",
-  resultResearch: [],
+  moviesResearch: [],
+  seriesResearch: [],
 });
