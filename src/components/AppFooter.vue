@@ -6,6 +6,15 @@ export default {
 };
 </script>
 
-<template></template>
+<template>
+  <footer>
+    <div class="footer-container"></div>
+  </footer>
+</template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+footer {
+  background-color: black;
+  height: 70px;
+}
+</style>

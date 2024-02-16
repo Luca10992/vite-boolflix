@@ -6,7 +6,6 @@ export default {
   data() {
     return {
       store,
-      searchbar: "",
     };
   },
 
@@ -14,7 +13,7 @@ export default {
     fetchmovies() {
       axios
         .get(
-          `${store.moviesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
+          `${store.moviesUri}${store.apiKey}&query=${store.searchbar}${store.itLanguage}`
         )
         .then((res) => {
           store.moviesResearch = res.data.results.map((movie) => {
@@ -33,7 +32,7 @@ export default {
     fetchseries() {
       axios
         .get(
-          `${store.seriesUri}${store.apiKey}&query=${this.searchbar}${store.itLanguage}`
+          `${store.seriesUri}${store.apiKey}&query=${store.searchbar}${store.itLanguage}`
         )
         .then((res) => {
           store.seriesResearch = res.data.results.map((serie) => {
@@ -55,7 +54,7 @@ export default {
     },
 
     emptySearchBar() {
-      this.searchbar = "";
+      store.searchbar = "";
     },
   },
 };
@@ -72,7 +71,7 @@ export default {
           class="w-100"
           @keyup="searchTitle()"
           @keyup.enter="emptySearchBar()"
-          v-model="this.searchbar"
+          v-model="store.searchbar"
           type="text"
           placeholder="Inserisci titolo film/serie Tv"
         />
@@ -84,12 +83,16 @@ export default {
 
 <style lang="scss" scoped>
 header {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
   background-color: black;
-  padding: 1rem;
 
   .header-container {
     width: 100%;
-    height: 40px;
+    height: 70px;
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

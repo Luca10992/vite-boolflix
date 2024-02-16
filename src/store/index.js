@@ -8,4 +8,5 @@ export const store = reactive({
   itLanguage: "&language=it-IT",
   moviesResearch: [],
   seriesResearch: [],
+  searchbar: "",
 });

@@ -15,14 +15,15 @@ export default {
 
 <template>
   <main>
-    <div class="container p-5">
-      <p>Film</p>
+    <div class="container">
       <div class="result-box">
         <div class="movie result" v-for="movie in store.moviesResearch">
           <AppCard :list="movie"></AppCard>
         </div>
+        <span :class="store.searchbar == '' ? '' : 'd-none'">
+          <font-awesome-icon icon="fa-solid fa-b" fade />
+        </span>
       </div>
-      <p>Serie Tv</p>
       <div class="result-box">
         <div class="serie result" v-for="serie in store.seriesResearch">
           <AppCard :list="serie"></AppCard>
@@ -33,17 +34,27 @@ export default {
 </template>
 
 <style lang="scss">
-p {
-  font-size: 2rem;
-  color: white;
+.container {
+  padding: 7rem 3rem 4rem 3rem;
+}
+
+span {
+  display: flex;
+  padding: 122px 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 15rem;
+  color: red;
   font-family: "Ruda", sans-serif;
   font-weight: bolder;
-  margin: 2rem 0;
+  opacity: 0.8;
+  text-shadow: 0px 0px 3px red;
 }
 
 .result-box {
   width: 100%;
   display: flex;
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
